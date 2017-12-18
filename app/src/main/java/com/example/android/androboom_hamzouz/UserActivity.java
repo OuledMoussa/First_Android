@@ -40,6 +40,8 @@ public class UserActivity extends AppCompatActivity {
         if (auth.getCurrentUser() != null){
             Log.v("AndroBoum_Hamzouz", "je suis déjà connecté sous l'email :"
                     +auth.getCurrentUser());
+            TextView textView = (TextView) findViewById(R.id.email);
+            textView.setText( auth.getCurrentUser().getEmail());
         } else{
             startActivityForResult(AuthUI.getInstance().createSignInIntentBuilder()
                     .setAvailableProviders(Arrays.asList(
@@ -47,6 +49,7 @@ public class UserActivity extends AppCompatActivity {
                     new AuthUI.IdpConfig.Builder(AuthUI.FACEBOOK_PROVIDER).build()*/
             )).build(), 42);
         }
+
         ImageView imageView = (ImageView) findViewById(R.id.imageUser);
         imageView.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
@@ -68,18 +71,20 @@ public class UserActivity extends AppCompatActivity {
             }
         );
         /*TextView textView = (TextView) findViewById(R.id.email);
-        textView.setText((CharSequence) auth.getCurrentUser());*/
+        textView.setText( auth.getCurrentUser().toString());*/
     }
 
     protected  void onActivityResult(int requestCode,int resultCode,Intent data){
         super.onActivityResult(requestCode, resultCode, data);
+        FirebaseAuth auth = FirebaseAuth.getInstance();
+
         if(requestCode == RC_SIGN_IN) {
             IdpResponse rep = IdpResponse.fromResultIntent(data);
             if (resultCode == RESULT_OK) {
                 Log.v("AndroBoum", "je me suis connecte et mon email est : "+
                 rep.getEmail());
                 TextView textView = (TextView) findViewById(R.id.email);
-                textView.setText((CharSequence) rep.getEmail());
+                textView.setText( auth.getCurrentUser().getEmail());
                 return;
             } else{
                 if (rep == null){
@@ -100,6 +105,7 @@ public class UserActivity extends AppCompatActivity {
             }
             Log.v("AndroBoum", "Réponse inconnue");
         }
+
         if (requestCode == SELECT_PICTURE) {
             if (resultCode == RESULT_OK) {
                 try {
