@@ -11,6 +11,7 @@ import com.firebase.ui.auth.IdpResponse;
 import com.google.firebase.auth.FirebaseAuth;
 
 import java.lang.reflect.Array;
+import java.util.Arrays;
 
 public class UserActivity extends AppCompatActivity {
     private static final int RC_SIGN_IN = 42;
@@ -26,9 +27,9 @@ public class UserActivity extends AppCompatActivity {
                     +auth.getCurrentUser());
         } else{
             startActivityForResult(AuthUI.getInstance().createSignInIntentBuilder()
-                    .setAvailableProviders(Array.asList(
-                    new AuthUI.IdpConfig.Builder(AuthUI.GOOGLE_PROVIDER).build(),
-                    new AuthUI.IdpConfig.Builder(AuthUi.FACEBOOK_PROVIDER).build()
+                    .setAvailableProviders(Arrays.asList(
+                    new AuthUI.IdpConfig.Builder(AuthUI.GOOGLE_PROVIDER).build()/*,
+                    new AuthUI.IdpConfig.Builder(AuthUI.FACEBOOK_PROVIDER).build()*/
             )).build(), 42);
         }
     }
