@@ -2,4 +2,6 @@
 <resources>
     <string name="titre">You know nothing John Toasted</string>
     <string name="bStart">Start</string>
+    <string name="action_logout" translatable="false">Logout</string>
+    <string name="action_settings" translatable="false">Settings</string>
 </resources>

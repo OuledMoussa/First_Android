@@ -3,6 +3,7 @@
     <string name="copyright">\@HamzouzCorp</string>
     <string name="facebook_application_id" translatable="false">180991423237047</string>
     <string name="facebook_login_protocol_scheme" translatable="false">fb180991423237047</string>
-    <string name="action_logout" translatable="false">Logout</string>
-    <string name="action_settings" translatable="false">Settings</string>
+    <string name="action_logout">Logout</string>
+    <string name="action_settings">Settings</string>
+    <string name="email">e-mail:</string>
 </resources>
