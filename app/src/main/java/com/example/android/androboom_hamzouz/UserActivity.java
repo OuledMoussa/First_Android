@@ -3,7 +3,10 @@ package com.example.android.androboom_hamzouz;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
+
 
 import com.firebase.ui.auth.AuthUI;
 import com.firebase.ui.auth.ErrorCodes;
@@ -20,6 +23,8 @@ public class UserActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user);
+        Toolbar myToolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(myToolbar);
 
         FirebaseAuth auth = FirebaseAuth.getInstance();
         if (auth.getCurrentUser() != null){
@@ -61,5 +66,9 @@ public class UserActivity extends AppCompatActivity {
             }
             Log.v("AndroBoum", "Réponse inconnue");
         }
+    }
+    public boolean onCreateOptionsMenus( Menu menu) {
+        getMenuInflater().inflate(R.menu.actions, menu);
+        return true;
     }
 }
