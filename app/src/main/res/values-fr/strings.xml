@@ -4,4 +4,5 @@
     <string name="bStart">Démarrer</string>
     <string name="action_logout" translatable="false">Déconnexion</string>
     <string name="action_settings" translatable="false">Paramètres</string>
+    <string name="imageUploaded">Image Uploadé</string>
 </resources>
