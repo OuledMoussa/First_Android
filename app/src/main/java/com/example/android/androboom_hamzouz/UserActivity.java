@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -44,12 +45,22 @@ public class UserActivity extends AppCompatActivity {
     private static final int SELECT_PICTURE = 124;
     private Profil user = new Profil();
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user);
         Toolbar myToolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(myToolbar);
+
+        Button bouton = (Button) findViewById(R.id.button2);
+        bouton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                lancerListUser();
+            }
+        });
 
         FirebaseAuth auth = FirebaseAuth.getInstance();
         if (auth.getCurrentUser() != null){
@@ -86,6 +97,11 @@ public class UserActivity extends AppCompatActivity {
                 }
             }
         );
+    }
+
+    public void lancerListUser() {
+        Intent intent = new Intent(this, UserListActivity.class);
+        startActivity(intent);
     }
 
     protected  void onActivityResult(int requestCode,int resultCode,Intent data){
