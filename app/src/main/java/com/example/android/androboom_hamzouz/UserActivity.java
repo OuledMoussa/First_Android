@@ -27,6 +27,9 @@ import com.firebase.ui.storage.images.FirebaseImageLoader;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -39,6 +42,7 @@ import java.util.Arrays;
 public class UserActivity extends AppCompatActivity {
     private static final int RC_SIGN_IN = 42;
     private static final int SELECT_PICTURE = 124;
+    private Profil user = new Profil();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -225,6 +229,42 @@ public class UserActivity extends AppCompatActivity {
                         toast.show();
                     }
                 });
+    }
+
+
+
+    private void setUser() {
+        FirebaseAuth auth = FirebaseAuth.getInstance();
+        FirebaseUser fuser = auth.getCurrentUser();
+        if(fuser != null) {
+            user.setUid(fuser.getUid());
+            user.setEmail(fuser.getEmail());
+            user.setConnected(true);
+        }
+    }
+
+    private void
+    updateProfil(Profil user) {
+        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
+        DatabaseReference ref = mDatabase.child("Users").child(user.getUid());
+        ref.child("connected").setValue(true);
+        ref.child("email").setValue(user.getEmail());
+        ref.child("uid").setValue(user.getUid());
+    }
+
+    @Override
+    protected void onDestroy() {
+        user.setConnected(false);
+        FirebaseAuth auth = FirebaseAuth.getInstance();
+        if(auth !=null) {
+            FirebaseUser fuser = auth.getCurrentUser();
+            if(fuser !=null) {
+                final FirebaseDatabase mDatabase = FirebaseDatabase.getInstance();
+                DatabaseReference mreference =mDatabase.getReference().child("Users").child(fuser.getUid());
+                mreference.child("connected").setValue(false);
+            }
+        }
+        super.onDestroy();
     }
 }
 
